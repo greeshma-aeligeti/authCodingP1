@@ -1,0 +1,29 @@
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+  "username": "Giri",
+  "name": "Greeshma",
+  "password": "123456",
+  "gender": "Female",
+  "location": "Detroit"
+}
+
+###
+POST http://localhost:3000/login/
+Content-Type: application/json
+
+{
+    "username": "Giri",
+    "password": "123456"
+}
+
+###
+POST http://localhost:3000/change-password
+Content-Type: application/json
+
+{
+  "username": "Giri",
+  "oldPassword": "123456",
+  "newPassword": "asdfgh"
+}
