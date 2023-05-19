@@ -49,8 +49,9 @@ app.post('/register',async (request,response)=>{
         response.send("User created successfully");
             }
         }else{
-            response.send("User already exists");
+           
             response.status(400);
+             response.send("User already exists");
         }
 })
 
@@ -79,20 +80,22 @@ app.post('/login', async (request,response)=>{
     }
 })
 
-app.post('/change-password', async (request,response)=>{
+app.put('/change-password', async (request,response)=>{
     try{
     const {username,oldPassword,newPassword}=request.body;
     const selectQuery=`select *from user where username='${username}';`;
     const dbUser=await db.get(selectQuery);
     const isEqual=await bcrypt.compare(oldPassword,dbUser.password);
     if(isEqual===false){
+         response.status(400);
         response.send("Invalid current password");
-        response.status(400);
+       
     }
     else{
         if(newPassword.length<5){
-            response.send("Password is too short");
             response.status(400)
+            response.send("Password is too short");
+            
         }
         else{
             const hashedPass= await bcrypt.hash(newPassword,13);
